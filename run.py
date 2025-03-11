@@ -7,7 +7,7 @@ from Utils import Experiment, Metrics
 if __name__ == "__main__":
     # 加载数据
     predictions = pd.read_csv('data/score.csv', names=['date', 'prediction'])
-    etf_data = pd.read_csv('data/1000ETF1m_new.csv', parse_dates=['date'], index_col='date')
+    etf_data = pd.read_csv('data/500ETF1m_new.csv', parse_dates=['date'], index_col='date')
 
     # param_grid = {
     #     'buy_threshold': [200,300,400,500],
