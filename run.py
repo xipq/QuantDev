@@ -17,9 +17,9 @@ if __name__ == "__main__":
     #
 
     param_grid = {
-        'buy_threshold': [200,300,400,500],
-        'buy_time': ['same_day_14:30', 'same_day_15:00', 'next_day_09:31'],
-        'sell_time': ['next_day_09:40', 'next_day_10:00', 'next_day_10:30', 'next_day_14:00', 'next_day_14:30', 'next_day_15:00', 'next_next_day_09:40']
+        'buy_threshold': [200,500],
+        'buy_time': ['same_day_14:30', 'same_day_14:50'],
+        'sell_time': ['next_day_10:00', 'next_day_10:30', 'next_day_14:00', 'next_day_14:30']
     }
 
     experiment = Experiment(Strategy, Backtest, Metrics)
