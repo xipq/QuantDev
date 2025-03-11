@@ -315,7 +315,7 @@ def overfitting_detection(returns):
 # 主程序
 if __name__ == "__main__":
     # 加载数据
-    prediction_df = load_prediction_data('data/score.csv')
+    prediction_df = load_prediction_data('../data/score.csv')
     start_date = prediction_df.index.min().strftime('%Y-%m-%d')
     end_date = (prediction_df.index.max() + timedelta(days=1)).strftime('%Y-%m-%d')
 

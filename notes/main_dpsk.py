@@ -18,7 +18,7 @@ BUY_TIMES = ['close']  # 买入时机选择
 SELL_TIMES = ['open', 'open_1h', 'close']  # 卖出时机选择
 
 # 加载预测数据
-pred_df = pd.read_csv('data/score.csv', header=None, names=['date', 'score'])
+pred_df = pd.read_csv('../data/score.csv', header=None, names=['date', 'score'])
 pred_df['date'] = pd.to_datetime(pred_df['date'], format='%Y%m%d')
 
 # 获取中证1000指数数据
