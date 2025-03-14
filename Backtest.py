@@ -2,7 +2,7 @@ import pandas as pd
 
 class Backtest:
     def __init__(self, strategy, initial_capital=1e6, transaction_cost=0.001, start_date=None, end_date=None,
-                 accumulation=True):
+                 accumulation=True, intensity_deduct=False):
         """
         初始化回测类。
 
@@ -19,6 +19,7 @@ class Backtest:
         self.end_date = pd.to_datetime(end_date) if end_date else None
         self.results = None
         self.accumulation = accumulation
+        self.intensity_deduct = intensity_deduct
 
     def run_backtest(self):
         """
@@ -59,9 +60,25 @@ class Backtest:
         for _, signal in signals.iterrows():
             buy_price = signal['buy_price']
             sell_price = signal['sell_price']
+            prediction = signal['prediction']
 
-            # 计算买入数量
-            shares = capital / buy_price * (1 - self.transaction_cost)
+            # todo: experiment code
+            if self.intensity_deduct:
+                if prediction > 200 and prediction < 300:
+                    # 1/4 position
+                    shares = capital / buy_price * (1 - self.transaction_cost) / 4
+                elif prediction >= 300 and prediction < 400:
+                    # 1/2 position
+                    shares = capital / buy_price * (1 - self.transaction_cost) / 2
+                elif prediction >= 400 and prediction < 500:
+                    # 3/4 position
+                    shares = capital / buy_price * (1 - self.transaction_cost) / 1.33
+                else:
+                    shares = capital / buy_price * (1 - self.transaction_cost)
+            else:
+                # 计算买入数量
+                shares = capital / buy_price * (1 - self.transaction_cost)
+
             pnl = shares * (sell_price - buy_price) * (1 - self.transaction_cost)
 
             # 更新资本

@@ -260,3 +260,5 @@ class MultiFactorStrategy(BaseStrategy):
             volume = np.nan
 
         return volume
+
+

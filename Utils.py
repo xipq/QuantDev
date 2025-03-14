@@ -5,7 +5,7 @@ import pandas as pd
 
 class Metrics:
     @staticmethod
-    def calculate_sharpe_ratio(returns, risk_free_rate=0.02):
+    def calculate_sharpe_ratio(returns, risk_free_rate=0.03):
         """
         计算夏普比率。
 
@@ -49,7 +49,7 @@ class Experiment:
         self.metrics_class = metrics_class
 
     def grid_search(self, predictions, etf_data, param_grid, selection_metric='sharpe_ratio', start_date=None,
-                    end_date=None, accumulation=True):
+                    end_date=None, accumulation=True, intensity_deduct=False):
         """
         网格搜索最优参数。
 
@@ -79,7 +79,8 @@ class Experiment:
                         transaction_cost=0.001,
                         start_date=start_date,
                         end_date=end_date,
-                        accumulation=accumulation
+                        accumulation=accumulation,
+                        intensity_deduct=intensity_deduct
                     )
                     backtest.run_backtest()
                     results = backtest.get_results()
@@ -89,6 +90,9 @@ class Experiment:
                     max_drawdown = self.metrics_class.calculate_max_drawdown(results['capital'])
                     win_rate = self.metrics_class.calculate_win_rate(results['pnl'])
                     total_pnl = results['pnl'].sum()
+
+                    # 计算换手率
+                    turnover = len(results['pnl']) / len(predictions)
 
                     # 记录每组实验结果
                     params_key = f"BT{buy_threshold}_BT{buy_time}_ST{sell_time}"
@@ -101,7 +105,8 @@ class Experiment:
                         'sharpe_ratio': sharpe_ratio,
                         'max_drawdown': max_drawdown,
                         'winrate': win_rate,
-                        'total_pnl': total_pnl
+                        'total_pnl': total_pnl,
+                        'turnover': turnover
                     })
 
                     if selection_metric == 'sharpe_ratio':
