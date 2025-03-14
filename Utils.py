@@ -140,7 +140,7 @@ class Experiment:
         # 确保 buy_date 是日期格式
         results['buy_date'] = pd.to_datetime(results['buy_date'], format='%Y%m%d')
 
-        plt.figure(figsize=(12, 8))
+        plt.figure(figsize=(6, 8))
 
         # 子图1：资金曲线
         plt.subplot(2, 1, 1)
@@ -215,7 +215,7 @@ class Experiment:
         best_results['buy_date'] = pd.to_datetime(best_results['buy_date'].astype(str).str.split('.').str[0],
                                                   format='%Y%m%d')
 
-        plt.figure(figsize=(14, 8))
+        plt.figure(figsize=(8, 8))
 
         # 子图1：资金曲线
         plt.subplot(2, 1, 1)
